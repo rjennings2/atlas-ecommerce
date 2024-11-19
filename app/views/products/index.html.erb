@@ -1,0 +1,28 @@
+<h1>Products</h1>
+
+<%= link_to "All Products", products_path %>
+
+<ul>
+  <% @products.each do |product| %>
+    <li>
+      <%= link_to product.product_name, product_path(product) %>
+      <br>
+      <%= product.category.category_name %>
+      <br>
+      <%= number_to_currency(product.price) %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Filter Products</h2>
+<%= link_to "On Sale", products_path(on_sale: true) %> |
+<%= link_to "New Arrivals", products_path(new: true) %> |
+<%= link_to "Recently Updated", products_path(recently_updated: true) %>
+
+<h2>Categories</h2>
+<% Category.all.each do |category| %>
+  <%= link_to category.category_name, products_path(category_id: category.id) %> |
+<% end %>
+
+
+<%= paginate @products %>
